@@ -1,5 +1,11 @@
 {
   "extends": ["tslint:recommended", "tslint-config-prettier"],
+  "linterOptions": {
+    "exclude": [
+      "*.json",
+      "**/*.json"
+    ]
+  },
   "rules": {
     "array-type": false,
     "arrow-parens": false,
