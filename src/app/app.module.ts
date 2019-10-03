@@ -7,7 +7,7 @@ import { MaterialModule } from './material.module';
 
 import { AppComponent } from './app.component';
 
-import { SighupComponent } from './auth/sighup/sighup.component';
+import { SignupComponent } from './auth/signup/signup.component';
 import { LoginComponent } from './auth/login/login.component';
 import { TrainingComponent } from './training/training.component';
 import { CurrentTrainingComponent } from './training/current-training/current-training.component';
@@ -18,7 +18,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 @NgModule({
   declarations: [
     AppComponent,
-    SighupComponent,
+    SignupComponent,
     LoginComponent,
     TrainingComponent,
     CurrentTrainingComponent,
