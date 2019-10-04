@@ -12,7 +12,7 @@ export class CurrentTrainingComponent implements OnInit {
   @Output() trainingExit = new EventEmitter();
 
   progress = 0;
-  timer: NodeJS.Timer;
+  timer: number;
 
   constructor(private dialog: MatDialog) {}
 
@@ -21,7 +21,7 @@ export class CurrentTrainingComponent implements OnInit {
   }
 
   startOrResumeTimer() {
-    this.timer = setInterval(() => {
+    this.timer = window.setInterval(() => {
       this.progress += 5;
       if (this.progress >= 100) {
         clearInterval(this.timer);
