@@ -1,8 +1,8 @@
 <section>
   <form
     fxLayout="column"
-    fxLayout="column"
     fxLayoutAlign="center center"
+    fxLayoutGap="10px"
     #f="ngForm"
     (ngSubmit)="onSubmit(f)"
   >
@@ -35,11 +35,21 @@
       <mat-error *ngIf="pwInput.hasError('minlength')">Has to be at least 6 characters.</mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input matInput [matDatepicker]="picker" placeholder="Your Birthdate" [max]="maxDate" ngModel name="birthdate" required />
+      <input
+        matInput
+        [matDatepicker]="picker"
+        placeholder="Your Birthdate"
+        [max]="maxDate"
+        ngModel
+        name="birthdate"
+        required
+      />
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
-    <mat-checkbox ngModel name="agree" required color="primary">Agree to terms and conditions.</mat-checkbox>
-    <button mat-raised-button color="primary">Submit</button>
+    <mat-checkbox ngModel name="agree" required color="primary"
+      >Agree to terms and conditions.</mat-checkbox
+    >
+    <button mat-raised-button color="primary" [disabled]="f.invalid">Submit</button>
   </form>
 </section>
