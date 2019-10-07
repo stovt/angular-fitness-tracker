@@ -19,12 +19,26 @@ export class AuthService {
     private trainingService: TrainingService
   ) {}
 
+  initAuthListener() {
+    this.afAuth.authState.subscribe(user => {
+      if (user) {
+        this.isAuthenticated = true;
+        this.authChange.next(true);
+        this.router.navigate(['/training']);
+      } else {
+        this.trainingService.cancelSubscriptions();
+        this.isAuthenticated = false;
+        this.authChange.next(false);
+        this.router.navigate(['/login']);
+      }
+    });
+  }
+
   registerUser(authData: AuthData) {
     this.afAuth.auth
       .createUserWithEmailAndPassword(authData.email, authData.password)
       .then(result => {
         console.log(result);
-        this.authSuccessfully();
       })
       .catch(error => {
         console.log(error);
@@ -35,7 +49,7 @@ export class AuthService {
     this.afAuth.auth
       .signInWithEmailAndPassword(authData.email, authData.password)
       .then(result => {
-        this.authSuccessfully();
+        console.log(result);
       })
       .catch(error => {
         console.log(error);
@@ -43,20 +57,10 @@ export class AuthService {
   }
 
   logout() {
-    this.trainingService.cancelSubscriptions();
     this.afAuth.auth.signOut();
-    this.authChange.next(false);
-    this.isAuthenticated = false;
-    this.router.navigate(['/login']);
   }
 
   isAuth() {
     return this.isAuthenticated;
-  }
-
-  private authSuccessfully() {
-    this.isAuthenticated = true;
-    this.authChange.next(true);
-    this.router.navigate(['/training']);
   }
 }
