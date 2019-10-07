@@ -4,6 +4,7 @@ import { Subject, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Exercise } from './exercise.model';
+import { UIService } from '../shared/ui.service';
 
 @Injectable({ providedIn: 'root' })
 export class TrainingService {
@@ -15,9 +16,10 @@ export class TrainingService {
   private runningExercise: Exercise;
   private fbSubs: Subscription[] = [];
 
-  constructor(private db: AngularFirestore) {}
+  constructor(private db: AngularFirestore, private uiService: UIService) {}
 
   fetchAvailableExercises() {
+    this.uiService.loadingStateChanged.next(true);
     this.fbSubs.push(
       this.db
         .collection<Exercise>('availableExercises')
@@ -32,10 +34,22 @@ export class TrainingService {
             }));
           })
         )
-        .subscribe(exercises => {
-          this.availableExercises = exercises;
-          this.exercisesChanged.next([...this.availableExercises]);
-        })
+        .subscribe(
+          exercises => {
+            this.uiService.loadingStateChanged.next(false);
+            this.availableExercises = exercises;
+            this.exercisesChanged.next([...this.availableExercises]);
+          },
+          error => {
+            this.uiService.loadingStateChanged.next(false);
+            this.uiService.showSnackBar(
+              'Fetching Exercises failed, please try anain later',
+              null,
+              3000
+            );
+            this.exercisesChanged.next(null);
+          }
+        )
     );
   }
 
@@ -80,13 +94,26 @@ export class TrainingService {
   }
 
   fetchCompletedOrCancelledExercises() {
+    this.uiService.loadingStateChanged.next(true);
     this.fbSubs.push(
       this.db
         .collection<Exercise>('finishedExercises')
         .valueChanges()
-        .subscribe(exercises => {
-          this.finishedExercisesChanged.next(exercises);
-        })
+        .subscribe(
+          exercises => {
+            this.uiService.loadingStateChanged.next(false);
+            this.finishedExercisesChanged.next(exercises);
+          },
+          error => {
+            this.uiService.loadingStateChanged.next(false);
+            this.uiService.showSnackBar(
+              'Fetching Exercises failed, please try anain later',
+              null,
+              3000
+            );
+            this.finishedExercisesChanged.next(null);
+          }
+        )
     );
   }
 
