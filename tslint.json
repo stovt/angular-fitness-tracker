@@ -92,7 +92,8 @@
     "use-lifecycle-interface": true,
     "use-pipe-transform-interface": true,
     "eofline": true,
-    "no-trailing-whitespace": true
+    "no-trailing-whitespace": true,
+    "semicolon": true
   },
   "rulesDirectory": [
     "codelyzer"
