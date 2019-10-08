@@ -24,3 +24,7 @@ export const getIsAuth = createSelector(
   getAuthState,
   fromAuth.getIsAuth
 );
+export const getUserId = createSelector(
+  getAuthState,
+  fromAuth.getUserId
+);

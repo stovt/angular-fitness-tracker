@@ -9,6 +9,7 @@ import { UIService } from '../shared/ui.service';
 import * as UI from '../shared/ui.actions';
 import * as Training from './training.actions';
 import * as fromTraining from './training.reducer';
+import * as fromRoot from '../app.reducer';
 
 @Injectable({ providedIn: 'root' })
 export class TrainingService {
@@ -32,7 +33,8 @@ export class TrainingService {
               id: doc.payload.doc.id,
               name: doc.payload.doc.data().name,
               duration: doc.payload.doc.data().duration,
-              calories: doc.payload.doc.data().calories
+              calories: doc.payload.doc.data().calories,
+              userId: doc.payload.doc.data().userId
             }));
           })
         )
@@ -89,25 +91,30 @@ export class TrainingService {
 
   fetchCompletedOrCancelledExercises() {
     this.store.dispatch(new UI.StartLoading());
-    this.fbSubs.push(
-      this.db
-        .collection<Exercise>('finishedExercises')
-        .valueChanges()
-        .subscribe(
-          exercises => {
-            this.store.dispatch(new UI.StopLoading());
-            this.store.dispatch(new Training.SetFinishedTrainings(exercises));
-          },
-          error => {
-            this.store.dispatch(new UI.StopLoading());
-            this.uiService.showSnackBar(
-              'Fetching Exercises failed, please try anain later',
-              null,
-              3000
-            );
-          }
-        )
-    );
+    this.store
+      .select(fromRoot.getUserId)
+      .pipe(take(1))
+      .subscribe(userId => {
+        this.fbSubs.push(
+          this.db
+            .collection<Exercise>('finishedExercises', ref => ref.where('userId', '==', userId))
+            .valueChanges()
+            .subscribe(
+              exercises => {
+                this.store.dispatch(new UI.StopLoading());
+                this.store.dispatch(new Training.SetFinishedTrainings(exercises));
+              },
+              error => {
+                this.store.dispatch(new UI.StopLoading());
+                this.uiService.showSnackBar(
+                  'Fetching Exercises failed, please try anain later',
+                  null,
+                  3000
+                );
+              }
+            )
+        );
+      });
   }
 
   cancelSubscriptions() {
@@ -115,6 +122,14 @@ export class TrainingService {
   }
 
   private addDataToDatabase(exercise: Exercise) {
-    this.db.collection('finishedExercises').add(exercise);
+    this.store
+      .select(fromRoot.getUserId)
+      .pipe(take(1))
+      .subscribe(userId => {
+        this.db.collection('finishedExercises').add({
+          ...exercise,
+          userId
+        });
+      });
   }
 }
