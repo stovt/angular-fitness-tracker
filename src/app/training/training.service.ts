@@ -45,11 +45,7 @@ export class TrainingService {
           },
           error => {
             this.store.dispatch(new UI.StopLoading());
-            this.uiService.showSnackBar(
-              'Fetching Exercises failed, please try anain later',
-              null,
-              3000
-            );
+            this.uiService.showSnackBar('Fetching Exercises failed, please try anain later');
           }
         )
     );
@@ -106,11 +102,7 @@ export class TrainingService {
               },
               error => {
                 this.store.dispatch(new UI.StopLoading());
-                this.uiService.showSnackBar(
-                  'Fetching Exercises failed, please try anain later',
-                  null,
-                  3000
-                );
+                this.uiService.showSnackBar('Fetching Exercises failed, please try anain later');
               }
             )
         );

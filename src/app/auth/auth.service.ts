@@ -43,7 +43,7 @@ export class AuthService {
       })
       .catch(error => {
         this.store.dispatch(new UI.StopLoading());
-        this.uiService.showSnackBar(error.message, null, 3000);
+        this.uiService.showSnackBar(error.message);
       });
   }
 
@@ -56,7 +56,7 @@ export class AuthService {
       })
       .catch(error => {
         this.store.dispatch(new UI.StopLoading());
-        this.uiService.showSnackBar(error.message, null, 3000);
+        this.uiService.showSnackBar(error.message);
       });
   }
 
