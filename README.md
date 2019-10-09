@@ -1,27 +1,38 @@
-# AngularFitnessTracker
+# Fitness Tracker - Made with Angular 8
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.6.
+Works with `Node 10.16.0` and `npm 6.11.3`
 
-## Development server
+Demo: [https://angular-fitness-tracker-668f8.firebaseapp.com](https://angular-fitness-tracker-668f8.firebaseapp.com)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Prerequisites
 
-## Code scaffolding
+Works with **Node.js** interpreter version **10.16.0**.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+[**Yarn**](https://yarnpkg.com/en/docs/install) or [**NPM**](https://www.npmjs.com/get-npm) package manager must be installed in the system. 
 
-## Build
+[**Firebase**](https://firebase.com/) account. Free Spark Plan works.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## Installation
 
-## Running unit tests
+After cloning the project, install its dependencies with this command:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```bash
+yarn install
+```
 
-## Running end-to-end tests
+## Creating a Firebase Project
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+1. Go to [**Firebase Console**](https://console.firebase.google.com) and create your own project.
+2. In the project console go to **Project Settings** and copy firebase project setting to the **src/environments/environments.ts** file.
+3. Go to **Database** that is located under project console navigation group and create **Cloud Firestore**.
+4. Go to **Authentication** that is also located under project console navigation group and set up **Email/Password** sign-in method.
+5. Deploy the application by running `firebase deploy`
 
-## Further help
+## Running locally
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+To run the app for local development use this command:
+
+```bash
+yarn start
+```
+This will start the development server (typically on the `localhost:4200`) which will force browser to reload each time you change the source code.
