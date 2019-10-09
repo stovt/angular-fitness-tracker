@@ -25,8 +25,12 @@ yarn install
 1. Go to [**Firebase Console**](https://console.firebase.google.com) and create your own project.
 2. In the project console go to **Project Settings** and copy firebase project setting to the **src/environments/environments.ts** file.
 3. Go to **Database** that is located under project console navigation group and create **Cloud Firestore**.
-4. Go to **Authentication** that is also located under project console navigation group and set up **Email/Password** sign-in method.
-5. Deploy the application by running `firebase deploy`
+4. In the **Cloud Firestore** create **availableExercises** collection and add some items with the next fields:
+    - name: *(string)*
+    - calories: *(number)*
+    - duration: *(number)*
+5. Go to **Authentication** that is also located under project console navigation group and set up **Email/Password** sign-in method.
+6. Deploy the application by running `firebase deploy`
 
 ## Running locally
 
