@@ -1,7 +1,5 @@
 # Fitness Tracker - Made with Angular 8
 
-Works with `Node 10.16.0` and `npm 6.11.3`
-
 Demo: [https://angular-fitness-tracker-668f8.firebaseapp.com](https://angular-fitness-tracker-668f8.firebaseapp.com)
 
 ## Prerequisites
