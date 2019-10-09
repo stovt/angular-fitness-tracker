@@ -43,8 +43,9 @@ export class TrainingService {
             this.store.dispatch(new UI.StopLoading());
             this.store.dispatch(new Training.SetAvailableTrainings(exercises));
           },
-          error => {
+          () => {
             this.store.dispatch(new UI.StopLoading());
+            this.store.dispatch(new Training.SetAvailableTrainings(null));
             this.uiService.showSnackBar('Fetching Exercises failed, please try anain later');
           }
         )
@@ -100,7 +101,7 @@ export class TrainingService {
                 this.store.dispatch(new UI.StopLoading());
                 this.store.dispatch(new Training.SetFinishedTrainings(exercises));
               },
-              error => {
+              () => {
                 this.store.dispatch(new UI.StopLoading());
                 this.uiService.showSnackBar('Fetching Exercises failed, please try anain later');
               }

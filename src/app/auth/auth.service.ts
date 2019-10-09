@@ -38,29 +38,28 @@ export class AuthService {
     this.store.dispatch(new UI.StartLoading());
     this.afAuth.auth
       .createUserWithEmailAndPassword(authData.email, authData.password)
-      .then(result => {
-        this.store.dispatch(new UI.StopLoading());
-      })
-      .catch(error => {
-        this.store.dispatch(new UI.StopLoading());
-        this.uiService.showSnackBar(error.message);
-      });
+      .then(() => this.handleOnSuccess())
+      .catch(error => this.handleOnError(error.message));
   }
 
   login(authData: AuthData) {
     this.store.dispatch(new UI.StartLoading());
     this.afAuth.auth
       .signInWithEmailAndPassword(authData.email, authData.password)
-      .then(result => {
-        this.store.dispatch(new UI.StopLoading());
-      })
-      .catch(error => {
-        this.store.dispatch(new UI.StopLoading());
-        this.uiService.showSnackBar(error.message);
-      });
+      .then(() => this.handleOnSuccess())
+      .catch(error => this.handleOnError(error.message));
   }
 
   logout() {
     this.afAuth.auth.signOut();
+  }
+
+  private handleOnSuccess() {
+    this.store.dispatch(new UI.StopLoading());
+  }
+
+  private handleOnError(message: string) {
+    this.store.dispatch(new UI.StopLoading());
+    this.uiService.showSnackBar(message);
   }
 }
