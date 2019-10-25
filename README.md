@@ -1,6 +1,6 @@
-# Fitness Tracker - Made with Angular 8
+# Fitness Tracker - Made with Angular 8 and Firebase
 
-Demo: [https://angular-fitness-tracker-668f8.firebaseapp.com](https://angular-fitness-tracker-668f8.firebaseapp.com)
+Demo: [https://angular-fitness-tracker-668f8.web.app/](https://angular-fitness-tracker-668f8.web.app/)
 
 ## Prerequisites
 
